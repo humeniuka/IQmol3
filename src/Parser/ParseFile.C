@@ -29,6 +29,7 @@
 #include "CubeParser.h"
 #include "GdmaParser.h"
 #include "IQmolParser.h"
+#include "MoldenParser.h"
 #include "MeshParser.h"
 #include "PovRayParser.h"
 #include "QChemInputParser.h"
@@ -235,6 +236,10 @@ bool ParseFile::parse(QString const& filePath, bool& addToFileList)
       parser = new FormattedCheckpoint;
    }
 
+   if (extension == "molden" || extension == "molf") {
+      parser = new Molden;
+   }
+
    if (extension == "ply" || extension == "obj" || 
        extension == "stl" || extension == "off" ) {
        QLOG_DEBUG() << "Using Mesh parser";
@@ -259,7 +264,7 @@ bool ParseFile::parse(QString const& filePath, bool& addToFileList)
       QLOG_DEBUG() << "Using PovRay parser";
       parser = new PovRay;
    }
-   
+
    if (!parser && OpenBabel::formatSupported(extension)) {
       // Only if we do not have a custom parser do we let Open Babel at it
       QLOG_DEBUG() << "Using OpenBabel parser";

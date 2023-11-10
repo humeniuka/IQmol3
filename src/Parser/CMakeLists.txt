@@ -14,6 +14,7 @@ set( SOURCES
    FormattedCheckpointParser.C
    GdmaParser.C
    IQmolParser.C
+   MoldenParser.C
    MeshParser.C
    OpenBabelParser.C
    ParseFile.C
