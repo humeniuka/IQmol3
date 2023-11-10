@@ -49,7 +49,7 @@ namespace Data {
          bool   ramanActive() const { return m_ramanActive; }
          QList<qglviewer::Vec> const&  eigenvector() const { return m_eigenvector; }
 
-         void setFreqeuncy(double const frequency) { m_frequency = frequency; }
+         void setFrequency(double const frequency) { m_frequency = frequency; }
          void setIntensity(double const intensity) { m_intensity = intensity; }
          void setIrActive(bool const tf) { m_irActive = tf; }
          void setRamanActive(bool const tf) { m_ramanActive = tf; }

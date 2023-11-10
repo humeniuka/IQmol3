@@ -24,6 +24,8 @@
 
 #include "Parser.h"
 #include "Data/Geometry.h"
+#include "Data/Frequencies.h"
+#include "Data/VibrationalMode.h"
 
 class QString;
 
@@ -45,6 +47,12 @@ namespace Parser {
          bool lineContainsSectionHeader(QString& line);
 
          Data::Geometry* readAtoms(TextStream&);
+         void readAtomMasses(TextStream&, Data::Geometry*);
+
+         Data::Geometry* readReferenceCoordinates(TextStream&);
+         void readVibrationalFrequencies(TextStream&, Data::VibrationalModeList&);
+         void readNormalModes(TextStream&, Data::VibrationalModeList&);
+         void readVibrationalIntensities(TextStream&, Data::VibrationalModeList&);
 
    };
 
