@@ -74,7 +74,7 @@ bool Molden::parse(TextStream& textStream)
       } else if (line.contains("[INT]")) {
          readVibrationalIntensities(textStream, vibrationalModeList);
       } else if (line.contains("[MASSES]")) {
-         readAtomMasses(textStream, referenceGeometry);
+         readAtomMasses(textStream, referenceGeometry ? referenceGeometry: currentGeometry);
       } else {
          textStream.nextLine();
       }
@@ -498,16 +498,12 @@ void Molden::readAtomMasses(
    ///   N      14.0030740080
    ///   C      12.0000000000
    ///   C      12.0000000000
-
+   ///
+   /// The [MASSES] field is not part of the original Molden format specification,
+   /// but it is used by TeraChem.
    QStringList tokens;
    QString line;
    QList<double> masses;
-
-   if (!geometry) {
-      QString message("The [MASS] section has to come after the geometry definition.");
-      m_errors.append(message);
-      return;
-   }
 
    while (!textStream.atEnd()) {
       line = textStream.nextNonEmptyLine();
@@ -530,6 +526,12 @@ void Molden::readAtomMasses(
          break;
       }
    }
+   if (!geometry) {
+      QString message("The [MASSES] section has to come after the geometry definition.");
+      m_errors.append(message);
+      return;
+   }
+
    geometry->setAtomicProperty<Data::Mass>(masses);
 }
 
